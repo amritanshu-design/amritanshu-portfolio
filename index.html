@@ -170,8 +170,9 @@ nav{
   display:block;
   max-width:100%;
   background:transparent;
-  mix-blend-mode:normal;
-  object-fit:cover;
+  /* Remove dark grey/black background using lighten blend mode */
+  mix-blend-mode:lighten;
+  object-fit:contain;
   object-position:center;
   
   /* Premium drop shadows and glow effects */
@@ -179,10 +180,10 @@ nav{
     drop-shadow(0 60px 120px rgba(0,0,0,0.85))
     drop-shadow(0 0 80px rgba(184,240,64,0.12))
     drop-shadow(0 0 40px rgba(120,100,220,0.08))
-    drop-shadow(0 -12px 60px rgba(120,100,220,0.12));
-  
-  /* Slight brightness boost for depth */
-  brightness(1.05);
+    drop-shadow(0 -12px 60px rgba(120,100,220,0.12))
+    brightness(1.08)
+    contrast(1.15)
+    saturate(1.1);
 }
 
 /* Avatar floating animation - smooth, natural motion */
