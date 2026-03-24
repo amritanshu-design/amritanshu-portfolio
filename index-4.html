@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Amritanshu Mishra - Product Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#060608;
+  --s1:#0f0f12;--s2:#18181d;--s3:#222228;
+  --text:#f5f4f0;--muted:#7a7880;--dim:#3a3840;
+  --border:rgba(255,255,255,0.06);
+  --green:#b8f040;--green2:#d4f870;
+  --serif:"DM Serif Display",Georgia,serif;
+  --sans:"DM Sans",system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.65;overflow-x:hidden;}
+
+/* NAV */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 3rem;
+  background:rgba(6,6,8,0.75);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:0.5px solid var(--border);
+  position:sticky;top:0;z-index:200;
+}
+.nav-logo{font-family:var(--serif);font-size:1.05rem;cursor:pointer;letter-spacing:-0.01em;}
+.nav-links{display:flex;gap:2.2rem;align-items:center;}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:13px;transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{
+  background:var(--green);color:#060608;
+  font-size:12px;font-weight:600;padding:0.5rem 1.3rem;
+  border-radius:100px;text-decoration:none;
+  transition:all 0.2s;letter-spacing:0.01em;
+}
+.nav-cta:hover{background:var(--green2);transform:scale(1.04);}
+
+.page{display:none;}
+.page.active{display:block;animation:fadeIn 0.35s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+/* HERO */
+.hero{
+  max-width:1100px;margin:0 auto;
+  padding:4rem 2rem 2rem;
+  display:grid;grid-template-columns:1fr 460px;
+  gap:2rem;align-items:center;min-height:88vh;
+}
+.hero-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--green);margin-bottom:1.4rem;
+  background:rgba(184,240,64,0.07);
+  border:0.5px solid rgba(184,240,64,0.18);
+  padding:5px 14px;border-radius:100px;
+}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hero-title{
+  font-family:var(--serif);
+  font-size:clamp(2.4rem,4.5vw,4rem);
+  line-height:1.06;letter-spacing:-0.03em;
+  margin-bottom:1.6rem;
+}
+.hero-title em{font-style:italic;color:var(--green);}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:2.8rem;max-width:460px;}
+.hero-cta{display:flex;gap:0.9rem;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:0.7rem 1.6rem;border-radius:100px;
+  font-size:13px;font-weight:500;text-decoration:none;
+  transition:all 0.25s;cursor:pointer;border:none;
+  font-family:var(--sans);
+}
+.btn-g{background:var(--green);color:#060608;}
+.btn-g:hover{background:var(--green2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,240,64,0.28);}
+.btn-o{background:transparent;color:var(--text);border:0.5px solid rgba(255,255,255,0.15);}
+.btn-o:hover{background:var(--s2);transform:translateY(-2px);}
+
+/* AVATAR COLUMN */
+.av-col{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:1.2rem;position:relative;
+}
+.av-stage{
+  position:relative;width:100%;max-width:440px;
+}
+/* Ambient glows */
+.av-glow{
+  position:absolute;bottom:-30px;left:50%;
+  transform:translateX(-50%);
+  width:340px;height:100px;
+  background:radial-gradient(ellipse,rgba(184,240,64,0.22) 0%,transparent 68%);
+  filter:blur(18px);pointer-events:none;z-index:0;
+  border-radius:50%;
+}
+.av-glow2{
+  position:absolute;top:5%;left:50%;
+  transform:translateX(-50%);
+  width:300px;height:240px;
+  background:radial-gradient(ellipse,rgba(120,80,220,0.10) 0%,transparent 70%);
+  filter:blur(24px);pointer-events:none;z-index:0;
+}
+/* 3D tilt wrapper */
+.av-3d{
+  position:relative;z-index:1;
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+/* Floating animation */
+.av-float{animation:float 5s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+
+/* VIDEO element - transparent bg, full width */
+.av-video{
+  width:100%;height:auto;
+  display:block;
+  border-radius:0;
+  background:transparent;
+  /* Remove any browser default bg */
+  mix-blend-mode:normal;
+  filter:
+    drop-shadow(0 50px 90px rgba(0,0,0,0.95))
+    drop-shadow(0 0 60px rgba(184,240,64,0.07))
+    drop-shadow(0 -8px 40px rgba(120,80,220,0.09));
+}
+
+/* Badge */
+.av-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;padding:8px 20px;border-radius:100px;
+  background:rgba(184,240,64,0.07);
+  border:0.5px solid rgba(184,240,64,0.18);
+  color:var(--green);font-weight:500;
+  backdrop-filter:blur(8px);
+  z-index:2;position:relative;
+}
+.av-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;}
+
+/* PROJECTS */
+section{max-width:1040px;margin:0 auto;padding:5rem 2rem;}
+.section-eyebrow{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem;}
+.section-title{font-family:var(--serif);font-size:2rem;letter-spacing:-0.02em;margin-bottom:2.8rem;}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.2rem;}
+.proj-card{
+  background:var(--s1);border:0.5px solid var(--border);
+  border-radius:20px;overflow:hidden;cursor:pointer;
+  transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  position:relative;
+}
+.proj-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 24px 60px rgba(0,0,0,0.6),0 0 0 0.5px rgba(184,240,64,0.18);}
+.proj-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:3.2rem;}
+.proj-body{padding:1.6rem;}
+.proj-co{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;}
+.proj-name{font-weight:500;font-size:16px;margin-bottom:0.5rem;}
+.proj-line{font-size:13px;color:var(--muted);margin-bottom:1.1rem;line-height:1.65;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.2rem;}
+.tag{font-size:11px;padding:3px 11px;border-radius:100px;background:var(--s3);color:var(--muted);border:0.5px solid var(--dim);}
+
+/* ABOUT */
+.about-wrap{background:var(--s1);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);}
+.about-inner{max-width:900px;margin:0 auto;padding:5rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.about-title{font-family:var(--serif);font-size:1.7rem;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.2;}
+.about-body{color:var(--muted);font-size:14px;line-height:1.9;}
+.about-edu{margin-top:1.6rem;padding-top:1.6rem;border-top:0.5px solid var(--border);}
+.edu-lbl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.9rem;}
+.edu-item{margin-bottom:1rem;}
+.edu-deg{font-size:13px;font-weight:500;}
+.edu-sch{font-size:12px;color:var(--muted);}
+.sk-lbl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+.sk-list{display:flex;flex-direction:column;gap:1rem;}
+.sk-row{display:flex;align-items:center;gap:1rem;}
+.sk-name{font-size:13px;min-width:148px;color:var(--muted);}
+.sk-bg{flex:1;height:2px;background:var(--s3);border-radius:2px;}
+.sk-fill{height:2px;background:linear-gradient(90deg,var(--green),var(--green2));border-radius:2px;}
+.tools-lbl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.9rem;margin-top:1.8rem;padding-top:1.6rem;border-top:0.5px solid var(--border);}
+.tools{display:flex;flex-wrap:wrap;gap:6px;}
+.tool{font-size:11px;padding:4px 13px;border-radius:100px;background:var(--s2);color:var(--muted);border:0.5px solid var(--dim);}
+
+/* CONTACT */
+.contact-wrap{background:var(--s1);border-top:0.5px solid var(--border);}
+.contact-inner{max-width:900px;margin:0 auto;padding:5rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.contact-title{font-family:var(--serif);font-size:2.2rem;letter-spacing:-0.03em;margin-bottom:1rem;line-height:1.1;}
+.contact-sub{font-size:14px;color:var(--muted);line-height:1.9;}
+.links{display:flex;flex-direction:column;gap:0.9rem;}
+.clink{
+  display:flex;align-items:center;gap:14px;
+  padding:1rem 1.3rem;border-radius:14px;
+  text-decoration:none;color:var(--text);
+  background:var(--s2);border:0.5px solid var(--border);
+  transition:all 0.2s;
+}
+.clink:hover{border-color:rgba(184,240,64,0.25);transform:translateX(5px);background:var(--s3);}
+.cico{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;}
+.ctext{font-size:14px;font-weight:500;}
+.csub{font-size:11px;color:var(--muted);margin-top:1px;}
+
+footer{border-top:0.5px solid var(--border);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.fn{font-family:var(--serif);font-size:0.9rem;}
+.fc{font-size:11px;color:var(--muted);}
+
+/* PROJECT PAGE */
+.back-bar{padding:1.2rem 2.5rem;border-bottom:0.5px solid var(--border);}
+.back-btn{font-size:13px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:var(--sans);transition:color 0.2s;}
+.back-btn:hover{color:var(--text);}
+.pbanner{padding:4rem 2.5rem 3.5rem;position:relative;overflow:hidden;}
+.ptype{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;font-weight:600;}
+.ptitle{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3rem);line-height:1.08;letter-spacing:-0.025em;margin-bottom:0.8rem;}
+.psub{font-size:14px;color:var(--muted);max-width:580px;line-height:1.8;margin-bottom:2rem;}
+.ptags{display:flex;gap:8px;flex-wrap:wrap;}
+.ptag{font-size:11px;padding:5px 14px;border-radius:100px;border:0.5px solid var(--border);color:var(--muted);background:var(--s2);}
+.pstats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-bottom:0.5px solid var(--border);}
+.pstat{background:var(--s1);padding:1.6rem 1rem;text-align:center;}
+.pstat-n{font-family:var(--serif);font-size:1.9rem;letter-spacing:-0.03em;color:var(--green);}
+.pstat-l{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4;}
+.pdf-sec{max-width:980px;margin:2.5rem auto;padding:0 2rem 4rem;}
+.pdf-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.pdf-h{font-family:var(--serif);font-size:1.2rem;letter-spacing:-0.01em;}
+.pdf-m{font-size:12px;color:var(--muted);}
+.pdf-box{border:0.5px solid var(--border);border-radius:18px;overflow:hidden;background:var(--s1);}
+.pdf-box iframe{display:block;width:100%;height:860px;border:none;}
+
+@media(max-width:860px){.hero{grid-template-columns:1fr;min-height:auto;}.av-col{display:none;}}
+@media(max-width:700px){
+  nav{padding:1rem 1.2rem;}.nav-links{gap:1rem;}
+  .about-inner,.contact-inner{grid-template-columns:1fr;gap:2.5rem;}
+  footer{padding:1.5rem 1.2rem;}
+  .pstats{grid-template-columns:repeat(2,1fr);}
+  .back-bar,.pbanner{padding:1.5rem 1.2rem;}
+  .pdf-sec{padding:0 1rem 3rem;}
+  .pdf-box iframe{height:520px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">Amritanshu Mishra</div>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home');goTo('projects');return false;">Projects</a>
+    <a href="#" onclick="showPage('home');goTo('about');return false;">About</a>
+    <a href="#" onclick="showPage('home');goTo('contact');return false;">Contact</a>
+    <a class="nav-cta" href="Amritanshu_Mishra_CV.pdf" target="_blank">Resume</a>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div>
+      <div class="hero-label"><span class="hero-dot"></span>Product Manager &middot; India</div>
+      <h1 class="hero-title">Hi, I'm Amritanshu &mdash; focused on <em>solving real-world problems.</em></h1>
+      <p class="hero-sub">I'm an aspiring Product Manager with a background in business and a strong focus on user experience. I enjoy breaking down problems, validating ideas, and building solutions that create real impact.</p>
+      <div class="hero-cta">
+        <button class="btn btn-g" onclick="goTo('projects')">See My Work</button>
+        <a class="btn btn-o" href="Amritanshu_Mishra_CV.pdf" target="_blank">Download Resume</a>
+      </div>
+    </div>
+
+    <!-- AVATAR -->
+    <div class="av-col" id="avCol">
+      <div class="av-stage" id="avStage">
+        <div class="av-glow"></div>
+        <div class="av-glow2"></div>
+        <div class="av-3d" id="av3d">
+          <div class="av-float">
+            <video
+              class="av-video"
+              id="avVideo"
+              autoplay
+              loop
+              muted
+              playsinline
+              preload="auto">
+              <source src="avatar.mp4" type="video/mp4"/>
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="av-badge"><span class="av-badge-dot"></span>Open to work</div>
+    </div>
+  </div>
+
+  <section id="projects">
+    <div class="section-eyebrow">Work</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="proj-grid">
+      <div class="proj-card" onclick="showPage('spotify')">
+        <div class="proj-thumb" style="background:linear-gradient(145deg,#0a1a0c,#162a18);">&#127911;</div>
+        <div class="proj-body">
+          <div class="proj-co">Product Teardown</div>
+          <div class="proj-name">Spotify</div>
+          <div class="proj-line">Deep-dive PM teardown &mdash; strategy, UX, growth model &amp; product opportunities.</div>
+          <div class="proj-tags"><span class="tag">Strategy</span><span class="tag">UX</span><span class="tag">SWOT</span><span class="tag">Growth</span></div>
+          <button class="btn btn-g" style="font-size:12px;padding:0.5rem 1.2rem;" onclick="event.stopPropagation();showPage('spotify')">Open Project &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="about-wrap" id="about">
+    <div class="about-inner">
+      <div>
+        <h2 class="about-title">Building products with purpose &amp; precision.</h2>
+        <p class="about-body">I'm an aspiring Product Manager with a background in business and a strong focus on user experience. I enjoy breaking down problems, validating ideas, and building solutions that create real impact. Currently sharpening my skills at IIT Patna's i-Hub.</p>
+        <div class="about-edu">
+          <div class="edu-lbl">Education</div>
+          <div class="edu-item"><div class="edu-deg">Product Management &amp; Agentic AI</div><div class="edu-sch">Vishlesan i-Hub, IIT Patna &middot; 2025 &ndash; Present</div></div>
+          <div class="edu-item"><div class="edu-deg">Bachelor of Business Administration</div><div class="edu-sch">IPS Academy, Indore &middot; 2022 &ndash; 2025</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="sk-lbl">Core PM Skills</div>
+        <div class="sk-list">
+          <div class="sk-row"><span class="sk-name">PRD Writing</span><div class="sk-bg"><div class="sk-fill" style="width:90%"></div></div></div>
+          <div class="sk-row"><span class="sk-name">User Research</span><div class="sk-bg"><div class="sk-fill" style="width:86%"></div></div></div>
+          <div class="sk-row"><span class="sk-name">Product Strategy</span><div class="sk-bg"><div class="sk-fill" style="width:85%"></div></div></div>
+          <div class="sk-row"><span class="sk-name">Agile Execution</span><div class="sk-bg"><div class="sk-fill" style="width:80%"></div></div></div>
+          <div class="sk-row"><span class="sk-name">Competitor Analysis</span><div class="sk-bg"><div class="sk-fill" style="width:87%"></div></div></div>
+          <div class="sk-row"><span class="sk-name">Roadmapping</span><div class="sk-bg"><div class="sk-fill" style="width:82%"></div></div></div>
+        </div>
+        <div class="tools-lbl">Tools</div>
+        <div class="tools">
+          <span class="tool">Jira</span><span class="tool">Confluence</span><span class="tool">Figma</span>
+          <span class="tool">Miro</span><span class="tool">A/B Testing</span><span class="tool">Wireframing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-wrap" id="contact">
+    <div class="contact-inner">
+      <div>
+        <h2 class="contact-title">Let's build something together.</h2>
+        <p class="contact-sub">I'm actively looking for PM opportunities. Whether it's a full-time role, internship, or just a conversation &mdash; feel free to reach out.</p>
+      </div>
+      <div class="links">
+        <a class="clink" href="https://www.linkedin.com/in/amritanshu-mishra-/" target="_blank">
+          <div class="cico" style="background:rgba(10,102,194,0.18);color:#5b9de8;">in</div>
+          <div><div class="ctext">LinkedIn</div><div class="csub">linkedin.com/in/amritanshu-mishra-</div></div>
+        </a>
+        <a class="clink" href="/cdn-cgi/l/email-protection#9ffef2edf6ebfef1ecf7eaababa8dff8f2fef6f3b1fcf0f2">
+          <div class="cico" style="background:rgba(184,240,64,0.1);color:var(--green);">@</div>
+          <div><div class="ctext">Email</div><div class="csub"><span class="__cf_email__" data-cfemail="70111d021904111e03180544444730171d11191c5e131f1d">[email&#160;protected]</span></div></div>
+        </a>
+        <a class="clink" href="Amritanshu_Mishra_CV.pdf" target="_blank">
+          <div class="cico" style="background:rgba(184,240,64,0.1);color:var(--green);">CV</div>
+          <div><div class="ctext">Download Resume</div><div class="csub">Amritanshu_Mishra_CV.pdf</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="fn">Amritanshu Mishra</div><div class="fc">&copy; 2026 &middot; Aspiring PM &middot; India</div></footer>
+</div>
+
+<!-- SPOTIFY PAGE -->
+<div id="page-spotify" class="page">
+  <div class="back-bar"><button class="back-btn" onclick="showPage('home')">&larr; All Projects</button></div>
+  <div class="pbanner" style="background:linear-gradient(145deg,#050d06,#0a1a0c);">
+    <div class="ptype">Product Teardown &middot; Case Study</div>
+    <h1 class="ptitle">Spotify &mdash; Music &amp; Audio Streaming</h1>
+    <p class="psub">A deep-dive product teardown analyzing Spotify's strategy, features, UX, and growth model &mdash; the way a product manager would.</p>
+    <div class="ptags">
+      <span class="ptag">Product Strategy</span><span class="ptag">UX Analysis</span>
+      <span class="ptag">Competitive Analysis</span><span class="ptag">SWOT</span><span class="ptag">North Star Metric</span>
+    </div>
+  </div>
+  <div class="pstats">
+    <div class="pstat"><div class="pstat-n">696M+</div><div class="pstat-l">Monthly Active Users</div></div>
+    <div class="pstat"><div class="pstat-n">100M+</div><div class="pstat-l">Songs in Library</div></div>
+    <div class="pstat"><div class="pstat-n">180+</div><div class="pstat-l">Markets Worldwide</div></div>
+    <div class="pstat"><div class="pstat-n">~7M</div><div class="pstat-l">Podcast Titles</div></div>
+  </div>
+  <div class="pdf-sec">
+    <div class="pdf-hdr"><div class="pdf-h">Full Teardown Document</div><div class="pdf-m">12 slides &middot; Gamma</div></div>
+    <div class="pdf-box"><iframe src="Spotify_teardown.pdf" title="Spotify Teardown"></iframe></div>
+  </div>
+  <footer><div class="fn">Amritanshu Mishra</div><div class="fc">&copy; 2026 &middot; Aspiring PM</div></footer>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function showPage(id){
+  document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});
+  document.getElementById("page-"+id).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function goTo(id){
+  setTimeout(function(){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth"});},60);
+}
+
+// Smooth 3D tilt following mouse — layered on top of video animation
+(function(){
+  var stage = document.getElementById("avStage");
+  var av3d  = document.getElementById("av3d");
+  if(!stage || !av3d) return;
+
+  var curX=0, curY=0, tarX=0, tarY=0;
+  var maxTilt = 16;
+
+  document.addEventListener("mousemove", function(e){
+    var r = stage.getBoundingClientRect();
+    if(r.width === 0) return;
+    var nx = ((e.clientX - r.left)  / r.width  - 0.5) * 2;
+    var ny = ((e.clientY - r.top)   / r.height - 0.5) * 2;
+    nx = Math.max(-1, Math.min(1, nx));
+    ny = Math.max(-1, Math.min(1, ny));
+    tarX = -ny * maxTilt * 0.55;
+    tarY =  nx * maxTilt;
+  });
+
+  // Reset on mouse leave
+  document.addEventListener("mouseleave", function(){
+    tarX = 0; tarY = 0;
+  });
+
+  function lerp(a,b,t){return a+(b-a)*t;}
+  (function tick(){
+    curX = lerp(curX, tarX, 0.08);
+    curY = lerp(curY, tarY, 0.08);
+    av3d.style.transform =
+      "perspective(900px) rotateX("+curX.toFixed(3)+"deg) rotateY("+curY.toFixed(3)+"deg)
