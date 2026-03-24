@@ -82,66 +82,241 @@ nav{
 .btn-o{background:transparent;color:var(--text);border:0.5px solid rgba(255,255,255,0.15);}
 .btn-o:hover{background:var(--s2);transform:translateY(-2px);}
 
-/* AVATAR COLUMN */
-.av-col{
+/* AVATAR SECTION - Modern 3D Premium Design */
+
+/* Main wrapper container */
+.avatar-wrapper{
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  gap:1.2rem;position:relative;
+  gap:1.8rem;position:relative;
+  padding:0 1rem;
+  perspective:1200px;
 }
-.av-stage{
-  position:relative;width:100%;max-width:440px;
-}
-/* Ambient glows */
-.av-glow{
-  position:absolute;bottom:-30px;left:50%;
+
+/* Ambient glow layers for premium lighting */
+.avatar-glow-primary{
+  position:absolute;
+  bottom:-60px;left:50%;
   transform:translateX(-50%);
-  width:340px;height:100px;
-  background:radial-gradient(ellipse,rgba(184,240,64,0.22) 0%,transparent 68%);
-  filter:blur(18px);pointer-events:none;z-index:0;
+  width:420px;height:140px;
+  background:radial-gradient(ellipse at center,rgba(184,240,64,0.35) 0%,rgba(184,240,64,0.15) 40%,transparent 70%);
+  filter:blur(32px);
+  pointer-events:none;
+  z-index:-1;
   border-radius:50%;
 }
-.av-glow2{
-  position:absolute;top:5%;left:50%;
+
+.avatar-glow-secondary{
+  position:absolute;
+  top:-40px;left:50%;
   transform:translateX(-50%);
-  width:300px;height:240px;
-  background:radial-gradient(ellipse,rgba(120,80,220,0.10) 0%,transparent 70%);
-  filter:blur(24px);pointer-events:none;z-index:0;
+  width:360px;height:320px;
+  background:radial-gradient(ellipse at center,rgba(120,100,220,0.18) 0%,rgba(120,100,220,0.08) 35%,transparent 70%);
+  filter:blur(40px);
+  pointer-events:none;
+  z-index:-2;
+  border-radius:50%;
 }
-/* 3D tilt wrapper */
-.av-3d{
-  position:relative;z-index:1;
+
+.avatar-glow-accent{
+  position:absolute;
+  top:20%;right:-100px;
+  width:300px;height:300px;
+  background:radial-gradient(ellipse,rgba(184,240,64,0.12) 0%,transparent 60%);
+  filter:blur(50px);
+  pointer-events:none;
+  z-index:-1;
+  border-radius:50%;
+}
+
+/* 3D perspective stage */
+.avatar-stage{
+  position:relative;
+  width:100%;
+  max-width:500px;
+  height:520px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform-style:preserve-3d;
+}
+
+/* Main avatar container with 3D transforms and animations */
+.avatar-container{
+  position:relative;
+  width:100%;
+  height:100%;
   transform-style:preserve-3d;
   will-change:transform;
+  animation:avatar-float 6s ease-in-out infinite;
+  transition:transform 0.1s ease-out;
 }
-/* Floating animation */
-.av-float{animation:float 5s ease-in-out infinite;}
-@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
 
-/* VIDEO element - transparent bg, full width */
-.av-video{
-  width:100%;height:auto;
+/* Inner container for layering effects */
+.avatar-inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform-style:preserve-3d;
+}
+
+/* Avatar video/image - transparent background, modern styling */
+.avatar{
+  width:100%;
+  height:auto;
   display:block;
-  border-radius:0;
+  max-width:100%;
   background:transparent;
-  /* Remove any browser default bg */
   mix-blend-mode:normal;
+  object-fit:cover;
+  object-position:center;
+  
+  /* Premium drop shadows and glow effects */
   filter:
-    drop-shadow(0 50px 90px rgba(0,0,0,0.95))
-    drop-shadow(0 0 60px rgba(184,240,64,0.07))
-    drop-shadow(0 -8px 40px rgba(120,80,220,0.09));
+    drop-shadow(0 60px 120px rgba(0,0,0,0.85))
+    drop-shadow(0 0 80px rgba(184,240,64,0.12))
+    drop-shadow(0 0 40px rgba(120,100,220,0.08))
+    drop-shadow(0 -12px 60px rgba(120,100,220,0.12));
+  
+  /* Slight brightness boost for depth */
+  brightness(1.05);
 }
 
-/* Badge */
-.av-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:12px;padding:8px 20px;border-radius:100px;
-  background:rgba(184,240,64,0.07);
-  border:0.5px solid rgba(184,240,64,0.18);
-  color:var(--green);font-weight:500;
-  backdrop-filter:blur(8px);
-  z-index:2;position:relative;
+/* Avatar floating animation - smooth, natural motion */
+@keyframes avatar-float {
+  0%, 100% {
+    transform:translateY(0px) translateZ(0);
+  }
+  25% {
+    transform:translateY(-16px) translateZ(20px);
+  }
+  50% {
+    transform:translateY(-20px) translateZ(30px);
+  }
+  75% {
+    transform:translateY(-12px) translateZ(15px);
+  }
 }
-.av-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;}
+
+/* Hover scale animation */
+@keyframes avatar-scale {
+  0%, 100% {
+    transform:scale(1);
+  }
+  50% {
+    transform:scale(1.02);
+  }
+}
+
+/* Avatar subtle scale on container hover */
+.avatar-stage:hover .avatar-container{
+  animation:avatar-float 6s ease-in-out infinite, avatar-scale 1.5s ease-in-out infinite !important;
+}
+
+/* Status badge - modern glassmorphism */
+.avatar-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-size:12px;
+  padding:10px 24px;
+  border-radius:100px;
+  background:rgba(184,240,64,0.08);
+  border:1px solid rgba(184,240,64,0.25);
+  color:var(--green);
+  font-weight:600;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  position:relative;
+  z-index:10;
+  transition:all 0.3s ease;
+  box-shadow:0 8px 32px rgba(184,240,64,0.1);
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  font-size:11px;
+}
+
+.avatar-badge:hover{
+  background:rgba(184,240,64,0.12);
+  border-color:rgba(184,240,64,0.35);
+  box-shadow:0 12px 40px rgba(184,240,64,0.15);
+  transform:translateY(-2px);
+}
+
+/* Badge animated dot */
+.avatar-badge-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--green);
+  animation:pulse-dot 2s cubic-bezier(0.4,0,0.6,1) infinite;
+  box-shadow:0 0 6px rgba(184,240,64,0.6);
+}
+
+.avatar-badge-text{
+  display:inline;
+}
+
+/* Pulse animation for badge dot */
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity:1;
+    box-shadow:0 0 6px rgba(184,240,64,0.6);
+  }
+  50% {
+    opacity:0.4;
+    box-shadow:0 0 2px rgba(184,240,64,0.3);
+  }
+}
+
+/* Responsive design */
+@media(max-width:960px){
+  .avatar-wrapper{
+    gap:1.4rem;
+  }
+  .avatar-stage{
+    max-width:420px;
+    height:440px;
+  }
+  .avatar-glow-primary{
+    width:360px;
+    height:120px;
+    bottom:-50px;
+  }
+}
+
+@media(max-width:768px){
+  .avatar-wrapper{
+    gap:1.2rem;
+    padding:0;
+  }
+  .avatar-stage{
+    max-width:100%;
+    height:360px;
+  }
+  .avatar-glow-primary{
+    width:300px;
+    height:100px;
+    bottom:-40px;
+  }
+  .avatar-glow-secondary{
+    width:280px;
+    height:240px;
+  }
+}
+
+@media(max-width:600px){
+  .avatar-stage{
+    height:300px;
+  }
+  .avatar-glow-primary{
+    width:240px;
+    height:80px;
+  }
+}
 
 /* PROJECTS */
 section{max-width:1040px;margin:0 auto;padding:5rem 2rem;}
@@ -264,15 +439,21 @@ footer{border-top:0.5px solid var(--border);padding:2rem 3rem;display:flex;align
     </div>
 
     <!-- AVATAR -->
-    <div class="av-col" id="avCol">
-      <div class="av-stage" id="avStage">
-        <div class="av-glow"></div>
-        <div class="av-glow2"></div>
-        <div class="av-3d" id="av3d">
-          <div class="av-float">
+    <div class="avatar-wrapper" id="avatarWrapper">
+      <!-- Ambient lighting layers -->
+      <div class="avatar-glow-primary"></div>
+      <div class="avatar-glow-secondary"></div>
+      <div class="avatar-glow-accent"></div>
+      
+      <!-- 3D perspective container -->
+      <div class="avatar-stage" id="avatarStage">
+        <!-- Main avatar container with 3D transforms -->
+        <div class="avatar-container" id="avatarContainer">
+          <div class="avatar-inner">
+            <!-- Video/Image element - transparent background -->
             <video
-              class="av-video"
-              id="avVideo"
+              class="avatar"
+              id="avatarMedia"
               autoplay
               loop
               muted
@@ -280,10 +461,17 @@ footer{border-top:0.5px solid var(--border);padding:2rem 3rem;display:flex;align
               preload="auto">
               <source src="avatar.mp4" type="video/mp4"/>
             </video>
+            <!-- Fallback image support -->
+            <!-- <img src="avatar.png" alt="Amritanshu Mishra" class="avatar"/> -->
           </div>
         </div>
       </div>
-      <div class="av-badge"><span class="av-badge-dot"></span>Open to work</div>
+      
+      <!-- Status badge -->
+      <div class="avatar-badge">
+        <span class="avatar-badge-dot"></span>
+        <span class="avatar-badge-text">Open to work</span>
+      </div>
     </div>
   </div>
 
@@ -395,37 +583,66 @@ function goTo(id){
   setTimeout(function(){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth"});},60);
 }
 
-// Smooth 3D tilt following mouse — layered on top of video animation
+// Enhanced 3D Avatar Interaction with Mouse Parallax
 (function(){
-  var stage = document.getElementById("avStage");
-  var av3d  = document.getElementById("av3d");
-  if(!stage || !av3d) return;
+  var stage = document.getElementById("avatarStage");
+  var container = document.getElementById("avatarContainer");
+  if(!stage || !container) return;
 
-  var curX=0, curY=0, tarX=0, tarY=0;
-  var maxTilt = 16;
+  var curX = 0, curY = 0, tarX = 0, tarY = 0;
+  var maxTilt = 18;  // Increased for more dramatic effect
+  var glowElements = document.querySelectorAll('.avatar-glow-primary, .avatar-glow-secondary');
 
+  // Track mouse position for 3D tilt
   document.addEventListener("mousemove", function(e){
-    var r = stage.getBoundingClientRect();
-    if(r.width === 0) return;
-    var nx = ((e.clientX - r.left)  / r.width  - 0.5) * 2;
-    var ny = ((e.clientY - r.top)   / r.height - 0.5) * 2;
+    var rect = stage.getBoundingClientRect();
+    if(rect.width === 0) return;
+    
+    // Calculate normalized position (-1 to 1)
+    var nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+    var ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+    
+    // Clamp values
     nx = Math.max(-1, Math.min(1, nx));
     ny = Math.max(-1, Math.min(1, ny));
-    tarX = -ny * maxTilt * 0.55;
-    tarY =  nx * maxTilt;
+    
+    // Set target rotation
+    tarX = -ny * maxTilt * 0.6;
+    tarY = nx * maxTilt;
+    
+    // Parallax effect on glow layers
+    glowElements.forEach(function(glow){
+      var parallaxX = nx * 20;
+      var parallaxY = ny * 20;
+      glow.style.transform = 'translateX(calc(-50% + ' + parallaxX + 'px)) translateY(' + parallaxY + 'px)';
+    });
   });
 
   // Reset on mouse leave
   document.addEventListener("mouseleave", function(){
-    tarX = 0; tarY = 0;
+    tarX = 0;
+    tarY = 0;
+    glowElements.forEach(function(glow){
+      glow.style.transform = 'translateX(-50%) translateY(0)';
+    });
   });
 
-  function lerp(a,b,t){return a+(b-a)*t;}
+  // Smooth lerp function for natural motion
+  function lerp(a, b, t){
+    return a + (b - a) * t;
+  }
+
+  // Animation loop with requestAnimationFrame
   (function tick(){
-    curX = lerp(curX, tarX, 0.08);
-    curY = lerp(curY, tarY, 0.08);
-    av3d.style.transform =
-      "perspective(900px) rotateX("+curX.toFixed(3)+"deg) rotateY("+curY.toFixed(3)+"deg)";
+    curX = lerp(curX, tarX, 0.12);
+    curY = lerp(curY, tarY, 0.12);
+    
+    container.style.transform =
+      "perspective(1000px) " +
+      "rotateX(" + curX.toFixed(2) + "deg) " +
+      "rotateY(" + curY.toFixed(2) + "deg) " +
+      "rotateZ(0deg)";
+    
     requestAnimationFrame(tick);
   })();
 })();
